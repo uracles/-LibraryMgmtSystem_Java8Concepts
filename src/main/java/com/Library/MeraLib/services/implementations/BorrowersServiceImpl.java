@@ -15,6 +15,20 @@ public class BorrowersServiceImpl implements BorrowersServices {
         return null;
     }
 
+    public String giveOutBooks(Library library) {
+        if (Objects.isNull(library))
+            throw new CustomException("library cannot be empty");
+
+        Borrowers borrowers;
+        while ((borrowers = library.getQueueInLibrary().poll()) != null) {
+            if (findBook(borrowers, library)) {
+                removeBookFromLibrary(borrowers, library);
+                return borrowers.getLevelsOfBorrower() + " " + borrowers.getName() + ", borrowed " + borrowers.getBookTitleRequest();
+            }
+            return borrowers.getLevelsOfBorrower() + " " + borrowers.getName() + ", " + borrowers.getBookTitleRequest() + " is unavailable";
+        }
+        return "No borrowers in the library queue.";
+    }
 }
 
 
