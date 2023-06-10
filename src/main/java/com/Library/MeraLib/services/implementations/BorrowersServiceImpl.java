@@ -29,6 +29,20 @@ public class BorrowersServiceImpl implements BorrowersServices {
         }
         return "No borrowers in the library queue.";
     }
+
+    public class StreamExample {
+        public static void main(String[] args) {
+            List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "Dave");
+
+            Optional<String> peekedName = names.stream().peek(System.out::println).findFirst();
+
+            if (peekedName.isPresent()) {
+                System.out.println("Peeked name: " + peekedName.get());
+            } else {
+                System.out.println("Stream is empty.");
+            }
+        }
+    }
 }
 
 
